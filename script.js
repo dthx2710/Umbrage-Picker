@@ -42,26 +42,13 @@ const rollResult = () => {
   goku.play();
   setTimeout(()=>{
     rollingGif.classList.add('d-none');
-     $('#resultModal').modal();
      poi.play();
+     $('#resultModal').modal();
+     if (removedCheck.checked){
+      removeWinner(partArray, winnerName);
+     }
     },3500);
 
-
-  // remove winner logic
-  if (removedCheck.checked){
-    console.log('removing')
-    const removedWinner = partArray.filter(name => (name!==(winnerName+"*") && name!==winnerName));
-    let removedWinnerString = "";
-    for (winner in removedWinner){
-    if (winner == 0){
-      removedWinnerString +=  removedWinner[winner];
-    }
-    else{
-      removedWinnerString += "\n" + removedWinner[winner];
-    }
-  }
-    participantTA.value = removedWinnerString
-  }
 }
 
 const winnerList = () =>{
@@ -77,4 +64,20 @@ const winnerList = () =>{
     }
   }
   winnerListDiv.innerHTML = winnerString;
+}
+
+const removeWinner = (participantsArray, wName) => {
+  // remove winner logic
+  const leftoverParts = participantsArray.filter(name => (name!==(wName+"*") && name!== wName));
+  console.log(leftoverParts);
+  let leftoverPartsString = "";
+  for (winner in leftoverParts){
+    if (winner == 0){
+      leftoverPartsString +=  leftoverParts[winner];
+    }
+    else{
+      leftoverPartsString += "\n" + leftoverParts[winner];
+    }
+  }
+  participantTA.value = leftoverPartsString
 }
